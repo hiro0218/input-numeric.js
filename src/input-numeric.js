@@ -1,12 +1,3 @@
-/**
-* --------------------------------------------------------------------------
-* input-numeric.js (v0.1.0)
-* Copyright (c) 2015 hiro (http://b.0218.jp/)
-* This software is released under the MIT License.
-* https://github.com/hiro0218/input-numeric.js/LICENSE
-* --------------------------------------------------------------------------
-*/
-
 "use strict";
 
 var InputNumeric = (function(global) {
