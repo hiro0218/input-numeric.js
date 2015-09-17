@@ -10,7 +10,7 @@
 
 var InputNumeric = (function(global) {
     // private
-    var defaultClass = "input-numeric",
+    var defaultInputName = "input-numeric",
     isImeDisabled = false,
     KEY_CODE = {
         BACKSPACE: 8,
@@ -39,28 +39,34 @@ var InputNumeric = (function(global) {
         PERIOD: 190
     };
 
-    function _init(inputName) {
-        // 指定がない場合はデフォルトのクラス名を取得する
-        var input = document.getElementsByClassName(inputName || defaultClass);
+    function _init(options) {
+        // オプションを取得
+        options = options || {};
 
+        // 指定がない場合はデフォルトのクラス名を取得する
+        var input = document.getElementsByClassName(options.inputName || defaultInputName);
+        var comma = options.comma || false; // カンマ許可
+        var negative = options.negative || true;    // マイナス値の許可
+
+        // 指定された要素にイベントを設定する
         [].forEach.call(input, function (element) {
             // キーが押された時のイベント
             _addListener(element, 'keydown', function (e) {
                 if ( !_onKeyDown(e) ) {
-                    _onKeyPress(e);
+                    _onKeyPress(e, comma);
                 }
             });
 
             // 要素にフォーカスがある時のイベント
             _addListener(element, 'focus', function (e) {
-                _setInputLimit(e);  // セット
-                _setValue(e);
+                _setInputLimit(e);  // IME-MODE:disable セット
+                _setValue(e, comma);
             });
 
             // 要素からフォーカスが外れた時のイベント
             _addListener(element, 'blur', function (e) {
-                _resetInputLimit(e); // リセット
-                _setValue(e);
+                _resetInputLimit(e); // IME-MODE:disable リセット
+                _setValue(e, comma);
             });
 
         });
@@ -72,9 +78,9 @@ var InputNumeric = (function(global) {
         var ctrlDown = e.ctrlKey || e.metaKey; // Mac support
 
         if( (ctrlDown && key == KEY_CODE.CHAR_C) || // c
-        (ctrlDown && key == KEY_CODE.CHAR_V) || // v
-        (ctrlDown && key == KEY_CODE.CHAR_X) || // x
-        (key >= KEY_CODE.END && key <= KEY_CODE.DOWN))// home, end, left, right
+            (ctrlDown && key == KEY_CODE.CHAR_V) || // v
+            (ctrlDown && key == KEY_CODE.CHAR_X) || // x
+            (key >= KEY_CODE.END && key <= KEY_CODE.DOWN)) // home, end, left, right
         {
             return true;
         } else {
@@ -82,20 +88,19 @@ var InputNumeric = (function(global) {
         }
     }
 
-    function _onKeyPress (e) {
+    function _onKeyPress (e, comma) {
         e = e || window.event;
         var key = e.which || e.keyCode || 0;
         var charStr = String.fromCharCode(key);
 
         if ( (key == KEY_CODE.RETURN || key == KEY_CODE.BACKSPACE || key == KEY_CODE.DELETE)) {
-            _setValue(e);
+            _setValue(e, comma);
         }
 
         // 数値ではなく、許可されていないキー
         if ( !isNumeric(charStr) && !isAllowKey(key) ) {
             // 数値ではない時、入力を許可しない
             if( !charStr.match(/\d/gi) ) {
-            //if ( !/\d/.test(charStr) ) {
                 e.preventDefault();
             }
         }
@@ -104,11 +109,12 @@ var InputNumeric = (function(global) {
     /**
     * 値をセットする
     */
-    function _setValue(e) {
+    function _setValue(e, comma) {
         var input = _getEventElement(e);
         var val = input.value;
         var arr = val.split('');
         var set = new Array();
+        var numericVal;
 
         arr.forEach(function(value) {
             // 数値・改行のみ許可
@@ -117,7 +123,16 @@ var InputNumeric = (function(global) {
             }
         });
 
-        input.value = (set.length > 0) ? set.join('') : '';
+        // 数値を取得
+        numericVal = (set.length > 0) ? set.join('') : ''
+
+        // カンマが許可されている場合
+        if (comma === true) {
+            numericVal = addCommas(numericVal);
+        }
+
+        // インプットにセット
+        input.value = numericVal;
     }
 
     /**
@@ -171,6 +186,15 @@ var InputNumeric = (function(global) {
     function isAlphabetNumeric (number) {
         return (number.match(/[^A-Z|^a-z|^0-9]/g)) ? false : true;
     }
+
+    /**
+     * カンマを追加する
+     * @param {[type]} str [description]
+     */
+     function addCommas(str) {
+        var parts = str.toString().split(".");
+        return parts[0].replace(/\B(?=(\d{3})+(?=$))/g, ",") + (parts[1] ? "." + parts[1] : "");
+     }
 
     //
     // Util
