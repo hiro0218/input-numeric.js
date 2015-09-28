@@ -21,15 +21,18 @@ jQueryを必要としないので様々なプロジェクトで使用できま�
 ```html
 <input type="text" class="input-numeric">
 
-<script>InputNumeric.set("input-numeric");</script>
+<script>
+InputNumeric.set({
+	inputName: 'input-numeric'
+});
+</script>
 ```
 
----
+### オプション
+inputName:'input-numeric'
+comma:false
+negative:false
 
-何も指定しない場合、<code>input-numeric</code>クラスが指定されます。
-```html
-<script>InputNumeric.set();</script>
-```
 
 
 ## Support
