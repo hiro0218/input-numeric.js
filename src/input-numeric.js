@@ -83,12 +83,12 @@ var InputNumeric = (function(global) {
 
 	function _onKeyPress (e, comma, negative, decimal) {
 		e = e || window.event;
-		var key = e.which || e.keyCode || 0;
-		var charStr = String.fromCharCode(key);
+		var key = e.which || e.keyCode || 0,
+			charStr = String.fromCharCode(key);
 
-		if ( (key == KEY_CODE.RETURN || key == KEY_CODE.BACKSPACE || key == KEY_CODE.DELETE)) {
-			_setValue(e, comma, negative, decimal);
-		}
+		//if ( (key == KEY_CODE.RETURN || key == KEY_CODE.BACKSPACE || key == KEY_CODE.DELETE)) {
+			//_setValue(e, comma, negative, decimal);
+		//}
 
 		// 数値ではなく、許可されていないキー
 		if ( !isNumeric(charStr) && !isAllowKey(key) ) {
@@ -108,7 +108,7 @@ var InputNumeric = (function(global) {
 			arr = val.split(''),
 			set = new Array(),
 			numericVal,
-            decimal_flg = false;
+			decimal_flg = false;
 
 		arr.forEach(function(value) {
 			// 数値・改行のみ許可
@@ -118,9 +118,9 @@ var InputNumeric = (function(global) {
 
 			// 小数点の許可
 			if ( decimal === true && value === "." && decimal_flg === false ) {
-                set.push(value);
-                decimal_flg = true;
-            }
+				set.push(value);
+				decimal_flg = true;
+			}
 		});
 
 
@@ -196,6 +196,7 @@ var InputNumeric = (function(global) {
 
 	/**
 	* カンマを追加する
+	* ドットがある場合はドット以前のみカンマを付与する
 	* @param {[type]} str [description]
 	*/
 	function addCommas(str) {
