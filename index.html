@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <script src="dist/input-numeric.js"></script>
+
+    <style>
+    .inputCss {
+        ime-mode: active;
+    }
+    </style>
+</head>
+<body>
+    <input type="text" class="input-numeric" value="a">
+    <input type="text" class="input-numeric" value="b">
+    <input type="text" class="input-numeric" value="c" style="ime-mode: disabled;">
+    <input type="text" class="input-numeric inputCss" value="d">
+    <br>
+    <input type="text" class="input-numeric-not-comma" value="">
+    <br>
+    <input type="text" class="" value="none">
+    <br>
+    <textarea class="input-numeric"></textarea>
+
+    <script>
+    // InputNumeric.set("input-numeric");
+
+    InputNumeric.set();
+
+    InputNumeric.set({
+        inputName: 'input-numeric-not-comma',
+        comma: true,
+        negative: true,
+        decimal: true
+    });
+
+
+    </script>
+
+</body>
+</html>
