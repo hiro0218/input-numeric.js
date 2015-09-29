@@ -1,9 +1,9 @@
 /*!
- * input-numeric.js (0.1.4)
+ * input-numeric.js (1.0.0)
  * テキスト入力欄に対して、半角数字のみの入力制限を設けるライブラリ
  * Copyright (c) 2015 hiro - http://b.0218.jp/
  * This software is released under the MIT License.
- * https://github.com/hiro0218/input-numeric.js/LICENSE
+ * https://github.com/hiro0218/input-numeric.js/blob/master/LICENSE
  */
 
 "use strict";
