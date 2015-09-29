@@ -1,5 +1,5 @@
 /*!
- * input-numeric.js (0.1.2)
+ * input-numeric.js (0.1.4)
  * テキスト入力欄に対して、半角数字のみの入力制限を設けるライブラリ
  * Copyright (c) 2015 hiro - http://b.0218.jp/
  * This software is released under the MIT License.
@@ -115,9 +115,8 @@ var InputNumeric = (function(global) {
 			val = input.value,
 			arr = val.split(''),
 			set = new Array(),
-			numericVal;
-
-
+			numericVal,
+            decimal_flg = false;
 
 		arr.forEach(function(value) {
 			// 数値・改行のみ許可
@@ -126,7 +125,10 @@ var InputNumeric = (function(global) {
 			}
 
 			// 小数点の許可
-			// ただし、先頭以外は無視
+			if ( decimal === true && value === "." && decimal_flg === false ) {
+                set.push(value);
+                decimal_flg = true;
+            }
 		});
 
 

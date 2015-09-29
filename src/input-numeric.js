@@ -107,7 +107,8 @@ var InputNumeric = (function(global) {
 			val = input.value,
 			arr = val.split(''),
 			set = new Array(),
-			numericVal;
+			numericVal,
+            decimal_flg = false;
 
 		arr.forEach(function(value) {
 			// 数値・改行のみ許可
@@ -116,9 +117,10 @@ var InputNumeric = (function(global) {
 			}
 
 			// 小数点の許可
-			// ただし、先頭以外は無視
-			// 有効の場合は.を含めて配列に入れる
-			// 先頭以外のドットを無視する
+			if ( decimal === true && value === "." && decimal_flg === false ) {
+                set.push(value);
+                decimal_flg = true;
+            }
 		});
 
 
