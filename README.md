@@ -9,7 +9,7 @@ jQueryを必要としないので様々なプロジェクトで使用できま�
 …というのを目指しています。
 
 ## Example
-<a href="http://hiro0218.github.io/works/input-numeric.js/">Demo</a>
+<a href="http://hiro0218.github.io/works/demo/input-numeric.js/">Demo</a>
 
 ## How to use
 ### ライブラリを読み込む
