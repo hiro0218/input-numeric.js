@@ -1,9 +1,9 @@
 /*!
- * input-numeric.js (0.1.2)
+ * input-numeric.js (1.0.0)
  * テキスト入力欄に対して、半角数字のみの入力制限を設けるライブラリ
  * Copyright (c) 2015 hiro - http://b.0218.jp/
  * This software is released under the MIT License.
- * https://github.com/hiro0218/input-numeric.js/LICENSE
+ * https://github.com/hiro0218/input-numeric.js/blob/master/LICENSE
  */
 
 "use strict";
@@ -91,12 +91,12 @@ var InputNumeric = (function(global) {
 
 	function _onKeyPress (e, comma, negative, decimal) {
 		e = e || window.event;
-		var key = e.which || e.keyCode || 0;
-		var charStr = String.fromCharCode(key);
+		var key = e.which || e.keyCode || 0,
+			charStr = String.fromCharCode(key);
 
-		if ( (key == KEY_CODE.RETURN || key == KEY_CODE.BACKSPACE || key == KEY_CODE.DELETE)) {
-			_setValue(e, comma, negative, decimal);
-		}
+		//if ( (key == KEY_CODE.RETURN || key == KEY_CODE.BACKSPACE || key == KEY_CODE.DELETE)) {
+			//_setValue(e, comma, negative, decimal);
+		//}
 
 		// 数値ではなく、許可されていないキー
 		if ( !isNumeric(charStr) && !isAllowKey(key) ) {
@@ -115,9 +115,8 @@ var InputNumeric = (function(global) {
 			val = input.value,
 			arr = val.split(''),
 			set = new Array(),
-			numericVal;
-
-
+			numericVal,
+			decimal_flg = false;
 
 		arr.forEach(function(value) {
 			// 数値・改行のみ許可
@@ -126,7 +125,10 @@ var InputNumeric = (function(global) {
 			}
 
 			// 小数点の許可
-			// ただし、先頭以外は無視
+			if ( decimal === true && value === "." && decimal_flg === false ) {
+				set.push(value);
+				decimal_flg = true;
+			}
 		});
 
 
@@ -202,6 +204,7 @@ var InputNumeric = (function(global) {
 
 	/**
 	* カンマを追加する
+	* ドットがある場合はドット以前のみカンマを付与する
 	* @param {[type]} str [description]
 	*/
 	function addCommas(str) {

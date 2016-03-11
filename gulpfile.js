@@ -11,7 +11,7 @@ var banner = [
   ' * <%= pkg.description %>',
   ' * Copyright (c) 2015 <%= pkg.author %> - http://b.0218.jp/',
   ' * This software is released under the MIT License.',
-  ' * https://github.com/hiro0218/input-numeric.js/LICENSE.md',
+  ' * https://github.com/hiro0218/input-numeric.js/blob/master/LICENSE',
   ' */',
   '',
   ''].join('\n');
