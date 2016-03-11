@@ -1,6 +1,6 @@
 {
   "name":        "input-numeric.js",
-  "version":     "1.0.0",
+  "version":     "1.0.2",
   "description": "テキスト入力欄に対して、半角数字のみの入力制限を設けるライブラリ",
   "homepage":    "https://github.com/hiro0218/input-numeric.js/",
   "main":        "dist/input-numeric.js",

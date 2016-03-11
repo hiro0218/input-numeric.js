@@ -69,7 +69,7 @@ default: `false`
 
 
 ## Licence
-* [MIT](https://github.com/hiro0218/input-numeric.js/LICENSE.md)
+* [MIT](https://github.com/hiro0218/input-numeric.js/blob/master/README.md)
 
 
 ## Author
